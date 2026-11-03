@@ -1,6 +1,7 @@
 ---
 import '../styles/style.css';
 import { getCollection, render } from 'astro:content';
+import SiteHead from '../components/SiteHead.astro';
 
 const siteName = 'n3Xm@R';
 
@@ -26,6 +27,7 @@ const certificateBodies = await Promise.all(
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SiteHead description="My personal portfolio and projects." />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,7 +38,6 @@ const certificateBodies = await Promise.all(
     />
 
     <title>{siteName} | Personal Space</title>
-    <link rel="icon" type="image/png" href="/avatar.png?v=2" />
   </head>
 
   <body>

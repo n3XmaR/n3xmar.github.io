@@ -2,6 +2,7 @@
 ---
 import '../../styles/style.css';
 import { getCollection, render } from 'astro:content';
+import SiteHead from '../../components/SiteHead.astro';
 
 export async function getStaticPaths() {
     const posts = await getCollection('projects');
@@ -21,6 +22,7 @@ const { Content } = await render(post);
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{post.data.title} | n3Xm@R</title>
+        <SiteHead description={post.data.description} />
     </head>
 
     <body>
