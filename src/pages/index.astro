@@ -1,0 +1,678 @@
+---
+import '../styles/style.css';
+import { getCollection, render } from 'astro:content';
+
+const siteName = 'n3Xm@R';
+
+const rabbitHoles = await getCollection('rabbit-holes');
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const certificates = await getCollection('certificates');
+
+// Render each certificate article once for the shared modal.
+const certificateBodies = await Promise.all(
+  certificates.map(async (certificate) => ({
+    id: certificate.id,
+    Content: (await render(certificate)).Content,
+  }))
+);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{siteName} | Personal Space</title>
+	<link rel="icon" type="image/png" href="/avatar.png">
+  </head>
+
+  <body>
+    <!--
+      Forgotten build note:
+      TjNYe2N1cmlvc2l0eV9raWxsZWRfdGhlX3NsZWVwX3NjaGVkdWxlfQ==
+    -->
+
+    <p class="side-quote">you can sleep when you're dead</p>
+
+    <main>
+      <!-- 01. Header -->
+      <header>
+        <div class="profile">
+          <img src="/avatar.png" alt="Profile avatar" />
+
+          <div class="profile-info">
+            <h1>{siteName}</h1>
+
+            <div class="social-links">
+              <a
+                href="https://github.com/n3XmaR"
+                target="_blank"
+                rel="noopener noreferrer"
+              >GitHub</a>
+              <a
+                href="https://www.linkedin.com/in/ammar-alseidi/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >LinkedIn</a>
+              <a href="mailto:n3xmar@gmail.com">Email</a>
+              <a href="/resume">Resume</a>
+            </div>
+          </div>
+        </div>
+
+        <nav class="site-nav">
+          <a href="#rabbit-holes">/Rabbit Holes</a>
+          <a href="#projects">/Projects</a>
+          <a href="#certificates">/Certificates</a>
+        </nav>
+      </header>
+
+      <!-- 02. Hero / About Me -->
+      <section class="hero">
+        <h2>
+          One goal.<br />
+          <span>Too many side quests.</span>
+        </h2>
+
+        <div class="hero-content">
+          <div class="about-me">
+            <p>Hey, I'm Ammar, a cybersecurity student.</p>
+            <p>
+              But you'll probably find me at midnight building a random
+              project that has absolutely nothing to do with my major.
+            </p>
+            <p>
+              Why? Good question. But here's a better one:
+              <span class="accent">Why not?</span>
+            </p>
+            <p>
+              I see a random video, get curious, learn how something works,
+              build it, and sometimes never touch it again.
+            </p>
+            <p>
+              The goal was never to make life easier.
+              <span class="accent">
+                It was to make it a little more interesting.
+              </span>
+            </p>
+          </div>
+
+          <img
+            class="hero-logo"
+            src="/pirate-logo.svg"
+            alt="Personal pirate emblem"
+          />
+        </div>
+      </section>
+
+      <!-- 03. Currently -->
+      <section class="currently">
+        <div class="currently-header">
+          <h2>Currently</h2>
+
+          <div class="currently-actions">
+            <p>a few open tabs in my head...</p>
+            <button class="music-btn" type="button">♫ Play a tune ▶</button>
+            <audio id="music" src="/music.mp3"></audio>
+          </div>
+        </div>
+
+        <div class="main-quest">
+          <div class="quest-header">
+            <p class="quest-label">MAIN QUEST</p>
+            <span class="quest-status">In Progress...</span>
+          </div>
+          <h3>HTB CPTS</h3>
+          <p class="quest-description">
+            Working my way through the penetration testing path.
+          </p>
+        </div>
+
+        <div class="side-quests">
+          <div class="side-quest">
+            <p class="side-label">SIDE QUEST 01</p>
+            <h3>Portfolio Website</h3>
+            <p class="side-description">
+              Building the website you're looking at right now.
+            </p>
+          </div>
+
+          <div class="side-quest">
+            <p class="side-label">SIDE QUEST 02</p>
+            <h3>Crime and Punishment</h3>
+            <p class="side-description">Reading (and overthinking it).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04. Rabbit Holes -->
+      <section class="rabbit-holes" id="rabbit-holes">
+        <div class="rabbit-header">
+          <h2>Rabbit Holes</h2>
+          <a href="/rabbit-holes">All Rabbit Holes ↗</a>
+        </div>
+
+        <div class="rabbit-list">
+          {rabbitHoles.map((post) => (
+            <article class="rabbit-item">
+              <p class="rabbit-category">{post.data.category}</p>
+              <h3>
+                <a href={`/rabbit-holes/${post.id}`}>{post.data.title}</a>
+              </h3>
+              <p>{post.data.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- 05. Projects -->
+      <section class="projects" id="projects">
+        <div class="projects-header">
+          <h2>Projects</h2>
+          <a href="/projects">All Projects ↗</a>
+        </div>
+
+        <div class="project-track">
+          {projects.map((project) => (
+            <a class="project-card" href={`/projects/${project.id}`}>
+              <div class="project-image">
+                {project.data.image ? (
+                  <img
+                    src={project.data.image}
+                    alt={project.data.title}
+                    loading="lazy"
+                  />
+                ) : (
+                  <span>&gt;_</span>
+                )}
+              </div>
+
+              <h3>{project.data.title}</h3>
+              <p class="project-description">{project.data.description}</p>
+              <p class="project-tags">{project.data.tags.join(' · ')}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- 06. Certificates -->
+      <section class="certificates" id="certificates">
+        <div class="certificates-header">
+          <h2>Certificates</h2>
+          <a href="/certificates">All Certificates ↗</a>
+        </div>
+
+        <div class="certificates-track">
+          {certificates.map((certificate) => (
+            <button
+              type="button"
+              class="certificate-card"
+              data-id={certificate.id}
+              data-title={certificate.data.title}
+              data-issuer={certificate.data.issuer}
+              data-image={certificate.data.image}
+              aria-haspopup="dialog"
+            >
+              <div class="certificate-image">
+                <img
+                  src={certificate.data.image}
+                  alt={`${certificate.data.title} certificate`}
+                  loading="lazy"
+                />
+              </div>
+              <h3>{certificate.data.title}</h3>
+              <p>{certificate.data.issuer}</p>
+            </button>
+          ))}
+        </div>
+
+        <!-- Markdown articles stay inactive until their card is opened. -->
+        {certificateBodies.map(({ id, Content }) => (
+          <template id={`certificate-body-${id}`}>
+            <Content />
+          </template>
+        ))}
+      </section>
+
+      <!-- Shared certificate dialog -->
+      <dialog id="certificate-modal" aria-labelledby="modal-title">
+        <button type="button" class="modal-close" aria-label="Close certificate">
+          ×
+        </button>
+        <img id="modal-image" src="" alt="" />
+        <h3 id="modal-title"></h3>
+        <p id="modal-issuer"></p>
+        <div id="modal-body" class="certificate-content"></div>
+      </dialog>
+
+      <!-- 07. Footer -->
+      <footer class="site-footer">
+        <div class="footer-top">
+          <div class="footer-info">
+            <h2>n3xmar.space</h2>
+            <p>Still figuring things out. One side quest at a time.</p>
+          </div>
+
+          <div class="footer-actions">
+            <a href="/log" class="footer-log">/log ↗</a>
+            <button type="button" class="terminal-btn">
+              <span>&gt;_</span> Terminal
+            </button>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© {new Date().getFullYear()} n3Xm@R</span>
+          <span>Made with curiosity, not a plan.</span>
+        </div>
+      </footer>
+
+      <!-- Terminal Easter Egg / Mini CTF -->
+      <dialog id="terminal-modal" aria-label="Interactive terminal">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <span>&gt;_</span>
+            <span>n3xmar@portfolio:~</span>
+          </div>
+          <button type="button" class="terminal-close" aria-label="Close terminal">
+            ×
+          </button>
+        </div>
+
+        <div class="terminal-body">
+          <div id="terminal-output" role="log" aria-live="polite">
+            <p class="terminal-welcome">n3Xm@R Terminal v1.0</p>
+            <p class="terminal-hint">Type 'help' to get started.</p>
+          </div>
+
+          <form id="terminal-form" autocomplete="off">
+            <label for="terminal-input">visitor@n3xmar:~$</label>
+            <input
+              type="text"
+              id="terminal-input"
+              spellcheck="false"
+              autocomplete="off"
+              aria-label="Terminal command"
+            />
+          </form>
+        </div>
+      </dialog>
+    </main>
+
+    <!-- Script: Music Player -->
+    <script>
+      const music = document.querySelector("#music");
+      const button = document.querySelector(".music-btn");
+
+      if (
+        music instanceof HTMLAudioElement &&
+        button instanceof HTMLButtonElement
+      ) {
+        button.addEventListener("click", async () => {
+          if (music.paused) {
+            try {
+              await music.play();
+              button.textContent = "♫ Pause ⏸";
+            } catch (error) {
+              console.error("Music playback failed:", error);
+            }
+          } else {
+            music.pause();
+            button.textContent = "♫ Play a tune ▶";
+          }
+        });
+
+        music.addEventListener("ended", () => {
+          button.textContent = "♫ Play a tune ▶";
+        });
+      }
+    </script>
+
+    <!-- Script: Certificate Viewer -->
+    <script>
+      const modal = document.querySelector('#certificate-modal');
+      const closeButton = document.querySelector('.modal-close');
+      const modalImage = document.querySelector('#modal-image');
+      const modalTitle = document.querySelector('#modal-title');
+      const modalIssuer = document.querySelector('#modal-issuer');
+      const modalBody = document.querySelector('#modal-body');
+      const certificateCards = document.querySelectorAll('.certificate-card');
+
+      if (
+        modal instanceof HTMLDialogElement &&
+        closeButton instanceof HTMLButtonElement &&
+        modalImage instanceof HTMLImageElement &&
+        modalTitle instanceof HTMLElement &&
+        modalIssuer instanceof HTMLElement &&
+        modalBody instanceof HTMLElement
+      ) {
+        certificateCards.forEach((card) => {
+          if (!(card instanceof HTMLButtonElement)) return;
+
+          card.addEventListener('click', () => {
+            const { id, title, issuer, image } = card.dataset;
+            const template = document.getElementById(`certificate-body-${id}`);
+
+            modalImage.src = image ?? '';
+            modalImage.alt = `${title ?? 'Certificate'} certificate`;
+            modalTitle.textContent = title ?? '';
+            modalIssuer.textContent = issuer ?? '';
+
+            // Replace the previous certificate's article with this one.
+            modalBody.replaceChildren();
+            if (template instanceof HTMLTemplateElement) {
+              modalBody.appendChild(template.content.cloneNode(true));
+            }
+
+            modal.scrollTop = 0;
+            modal.showModal();
+          });
+        });
+
+        closeButton.addEventListener('click', () => modal.close());
+
+        // A click on the dark backdrop closes the modal.
+        modal.addEventListener('click', (event) => {
+          const rect = modal.getBoundingClientRect();
+          const outside =
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom;
+
+          if (outside) modal.close();
+        });
+      }
+    </script>
+
+    <!-- Script: Terminal / Mini CTF -->
+    <script>
+      // Terminal elements
+      const terminal = document.querySelector('#terminal-modal');
+      const openTerminal = document.querySelector('.terminal-btn');
+      const closeTerminal = document.querySelector('.terminal-close');
+      const terminalForm = document.querySelector('#terminal-form');
+      const terminalInput = document.querySelector('#terminal-input');
+      const terminalOutput = document.querySelector('#terminal-output');
+      const terminalPrompt = document.querySelector('#terminal-form label');
+
+      if (
+        terminal instanceof HTMLDialogElement &&
+        openTerminal instanceof HTMLButtonElement &&
+        closeTerminal instanceof HTMLButtonElement &&
+        terminalForm instanceof HTMLFormElement &&
+        terminalInput instanceof HTMLInputElement &&
+        terminalOutput instanceof HTMLElement &&
+        terminalPrompt instanceof HTMLLabelElement
+      ) {
+        // Intentional CTF cookie, not a real session token.
+        document.cookie = 'n3x_session=N3X{accept_cookies_reject_reality}; path=/; SameSite=Lax';
+
+        const HOME = '/home/visitor';
+        let currentPath = HOME;
+
+        // Store only SHA-256 hashes in the submission checker.
+        const flagHashes: Record<string, string> = {
+          source: 'd3a800abf8511d78d67877beb76ba56559e35184ca20ebe457e841e09da37e75',
+          cookie: '8712c8e1ae50eeb461572a0c1b658f7ea4a9879cfe4ac6a303b1506e6787c4d9',
+          terminal: 'c5bdaf4b3383ee6241e657a8d1ef5656a1535cc0544f5fe07bf7187756e454a7'
+        };
+
+        const solved = new Set<string>(
+          JSON.parse(localStorage.getItem('n3x_ctf_solved') ?? '[]')
+        );
+
+        // null = directory, string = file content.
+        const fileSystem: Record<string, Record<string, string | null>> = {
+          '/': { home: null },
+          '/home': { visitor: null },
+          '/home/visitor': {
+            projects: null,
+            'rabbit-holes': null,
+            certificates: null,
+            secrets: null,
+            '.archive': null,
+            'readme.txt':
+              "Welcome to n3Xm@R's little corner of the internet.\n" +
+              'Take a look around.'
+          },
+          '/home/visitor/projects': {
+            'homelab.txt':
+              'Linux Homelab\nA self-hosted environment built using Linux and Docker.',
+            'ghostpass.txt': 'GhostPass\nA Python CLI password manager.'
+          },
+          '/home/visitor/rabbit-holes': {
+            'the-stranger.txt':
+              'The Stranger - Albert Camus\nA book that left me with more questions than answers.'
+          },
+          '/home/visitor/certificates': {
+            'pre-security.txt':
+              'Pre Security - TryHackMe\nAn introduction to cybersecurity fundamentals.'
+          },
+          '/home/visitor/secrets': {
+            'note.txt': 'Nothing useful here. Or maybe I forgot where I put it.'
+          },
+          '/home/visitor/.archive': {
+            backup: null,
+            'journal.txt': 'An old archive. The interesting stuff was backed up somewhere.'
+          },
+          '/home/visitor/.archive/backup': {
+            'old-notes.txt':
+              'Forgotten note:\nN3X{not_everything_is_in_plain_sight}'
+          }
+        };
+
+        function printLine(message: string, color = '#ABA29A') {
+          const line = document.createElement('p');
+          line.textContent = message;
+          line.style.color = color;
+          terminalOutput.appendChild(line);
+          terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function showWelcome() {
+          terminalOutput.replaceChildren();
+          printLine('[ N3X MINI CTF ]', '#E9B44C');
+          printLine('3 flags are hidden somewhere on this website.\nFind them. No spoilers.');
+          printLine(`Captured: ${solved.size}/3`, '#E9B44C');
+          printLine('Submit a flag: submit N3X{...}\nType help for terminal commands.');
+        }
+
+        function resolvePath(input: string) {
+          let path: string;
+          if (input === '~') path = HOME;
+          else if (input.startsWith('~/')) path = HOME + input.slice(1);
+          else if (input.startsWith('/')) path = input;
+          else path = currentPath + '/' + input;
+
+          const parts: string[] = [];
+          for (const part of path.split('/')) {
+            if (!part || part === '.') continue;
+            if (part === '..') parts.pop();
+            else parts.push(part);
+          }
+          return '/' + parts.join('/');
+        }
+
+        function updatePrompt() {
+          let displayPath = currentPath;
+          if (currentPath === HOME) displayPath = '~';
+          else if (currentPath.startsWith(HOME + '/')) {
+            displayPath = '~' + currentPath.slice(HOME.length);
+          }
+          terminalPrompt.textContent = `visitor@n3xmar:${displayPath}$`;
+        }
+
+        async function hashFlag(flag: string) {
+          const bytes = new TextEncoder().encode(flag);
+          const digest = await crypto.subtle.digest('SHA-256', bytes);
+          return Array.from(new Uint8Array(digest))
+            .map((byte) => byte.toString(16).padStart(2, '0'))
+            .join('');
+        }
+
+        async function runCommand(rawCommand: string) {
+          const parts = rawCommand.trim().split(/\s+/);
+          const command = parts[0].toLowerCase();
+          const args = parts.slice(1);
+
+          switch (command) {
+            case 'help':
+              printLine(
+                'COMMANDS\n' +
+                'help      Show commands\n' +
+                'ls   List files\n' +
+                'cd        Change directory\n' +
+                'cat       Read a file\n' +
+                'submit    Submit a flag\n' +
+                'clear     Clear screen\n' +
+                'exit      Close terminal'
+              );
+              break;
+
+            case 'ls': {
+              const showHidden = args.includes('-a');
+              const pathArgument = args.find((arg) => arg !== '-a') ?? '.';
+              const target = resolvePath(pathArgument);
+              const directory = fileSystem[target];
+
+              if (!directory) {
+                printLine(`ls: cannot access '${pathArgument}': No such directory`);
+                break;
+              }
+
+              const items = Object.entries(directory)
+                .filter(([name]) => showHidden || !name.startsWith('.'))
+                .map(([name, value]) => value === null ? `${name}/` : name);
+              if (showHidden) items.unshift('.', '..');
+              printLine(items.join('    ') || '(empty)');
+              break;
+            }
+
+            case 'cd': {
+              const target = args.length ? resolvePath(args[0]) : HOME;
+              if (!fileSystem[target]) {
+                printLine(`cd: no such directory: ${args[0] ?? ''}`);
+                break;
+              }
+              currentPath = target;
+              updatePrompt();
+              break;
+            }
+
+            case 'cat': {
+              if (!args[0]) {
+                printLine('Usage: cat <filename>');
+                break;
+              }
+              const target = resolvePath(args[0]);
+              const lastSlash = target.lastIndexOf('/');
+              const parentPath = target.slice(0, lastSlash) || '/';
+              const filename = target.slice(lastSlash + 1);
+              const directory = fileSystem[parentPath];
+
+              if (!directory || !Object.hasOwn(directory, filename)) {
+                printLine(`cat: ${args[0]}: No such file`);
+                break;
+              }
+              const content = directory[filename];
+              printLine(content === null ? `cat: ${args[0]}: Is a directory` : content);
+              break;
+            }
+
+            case 'submit': {
+              const flag = args.join(' ');
+              if (!flag) {
+                printLine('Usage: submit N3X{...}');
+                break;
+              }
+
+              const digest = await hashFlag(flag);
+              const matchingChallenge = Object.entries(flagHashes)
+                .find(([, expectedHash]) => expectedHash === digest)?.[0];
+
+              if (!matchingChallenge) {
+                printLine('✗ Incorrect flag. Try again.', '#F0ECE4');
+                break;
+              }
+              if (solved.has(matchingChallenge)) {
+                printLine('Already captured this flag!', '#E9B44C');
+                break;
+              }
+
+              solved.add(matchingChallenge);
+              localStorage.setItem('n3x_ctf_solved', JSON.stringify([...solved]));
+              printLine(`✓ Flag captured! (${solved.size}/3)`, '#E9B44C');
+              if (solved.size === 3) {
+                printLine('All 3 flags captured. Nice work! 🎉', '#E9B44C');
+              }
+              break;
+            }
+
+            case 'clear':
+              terminalOutput.replaceChildren();
+              break;
+
+            case 'exit':
+              terminal.close();
+              break;
+
+            default:
+              printLine(`Command not found: ${command}. Type 'help'.`, '#F0ECE4');
+          }
+        }
+
+        openTerminal.addEventListener('click', () => {
+          terminal.showModal();
+          terminalInput.focus();
+          // Show the introduction again if the user cleared the screen.
+          if (!terminalOutput.childElementCount) showWelcome();
+        });
+
+        closeTerminal.addEventListener('click', () => terminal.close());
+
+        terminal.addEventListener('click', (event) => {
+          const rect = terminal.getBoundingClientRect();
+          const clickedOutside =
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom;
+          if (clickedOutside) terminal.close();
+        });
+
+        terminalForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const rawCommand = terminalInput.value.trim();
+          terminalInput.value = '';
+          if (!rawCommand) return;
+
+          printLine(`${terminalPrompt.textContent} ${rawCommand}`, '#E9B44C');
+          try {
+            await runCommand(rawCommand);
+          } catch (error) {
+            console.error('Terminal error:', error);
+            printLine('An unexpected error occurred.', '#F0ECE4');
+          }
+        });
+
+        updatePrompt();
+        showWelcome();
+      }
+    </script>
+
+  </body>
+</html>

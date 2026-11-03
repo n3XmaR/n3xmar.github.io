@@ -1,0 +1,109 @@
+
+---
+import '../styles/style.css';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 | n3Xm@R</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+</head>
+
+<body>
+    <main class="error-page">
+        <p class="error-label">[ SYSTEM MESSAGE ]</p>
+
+        <h1>404</h1>
+
+        <img
+            class="error-gif"
+            src="/images/404.gif"
+            alt="Lost in the wrong rabbit hole"
+        />
+
+        <h2>Wrong rabbit hole.</h2>
+        <p>This page doesn't exist. Yet.</p>
+
+        <a href="/" class="error-back">
+            ← Back to reality
+        </a>
+
+        <span class="error-footer">
+            n3xmar.space / somewhere in the void
+        </span>
+    </main>
+</body>
+</html>
+
+<style>
+    .error-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .error-label {
+        color: #E9B44C;
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+
+    .error-page h1 {
+        font-size: clamp(90px, 18vw, 170px);
+        color: #E9B44C;
+        margin: 0;
+        line-height: 1;
+        font-family: 'Fuzzy Bubbles', cursive;
+    }
+
+    .error-gif {
+        width: 180px;
+        max-height: 160px;
+        object-fit: contain;
+        margin: 10px 0;
+    }
+
+    .error-page h2 {
+        color: #F0ECE4;
+        font-size: 25px;
+        margin: 0;
+    }
+
+    .error-page > p:not(.error-label) {
+        color: #ABA29A;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .error-back {
+        margin-top: 20px;
+        border: 1px solid #E9B44C;
+        padding: 12px 22px;
+        border-radius: 8px;
+        color: #E9B44C;
+        transition: 0.25s;
+    }
+
+    .error-back:hover {
+        background: #E9B44C;
+        color: #141414;
+        transform: translateY(-3px);
+    }
+
+    .error-footer {
+        color: #514739;
+        font-size: 11px;
+        margin-top: 35px;
+    }
+</style>
