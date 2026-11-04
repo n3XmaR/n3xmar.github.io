@@ -8,7 +8,7 @@ date: 2026-08-06
 
 # My Thoughts on The Stranger
 
-*Albert Camus — Finished August 6, 2026*
+*Albert Camus - Finished August 6, 2026*
 
 Meursault is, quite literally, a stranger.
 
