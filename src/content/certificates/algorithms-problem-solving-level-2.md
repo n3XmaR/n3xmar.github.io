@@ -3,8 +3,8 @@ title: Algorithms & Problem-Solving – Level 2
 issuer: Programming Advices
 image: /images/certificates/certificate-of-completion-for-algorithms-problem-solving-level-2.png
 type: completion
-startDate: 2025-02-06
-endDate: 2025-02-27
+startDate: 2026-02-11
+endDate: 2026-02-27
 ---
 This was the fifth course I completed in Dr. Mohammed Abu-Hadhoud's programming roadmap, following the foundations of programming, C++, and problem-solving.
 
