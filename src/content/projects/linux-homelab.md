@@ -40,6 +40,12 @@ I used **Docker** to deploy and manage multiple services:
 
 By connecting these services, I built a system where media requests, library management, and streaming could work together with minimal manual intervention.
 
+![](/images/projects/sponge-jellyseerr.jpg)
+
+
+
+![](/images/projects/sponge-jellyfin.jpg)
+
 ## What I Learned
 
 Sponge gave me hands-on experience with Linux server administration, Docker, Python automation, networking, remote access, and self-hosting.
