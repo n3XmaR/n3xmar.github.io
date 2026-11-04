@@ -1,4 +1,3 @@
-
 ---
 title: "My Thoughts on The Stranger"
 description: "A few thoughts on Meursault, absurdism, society, and why this strange book stayed with me."
