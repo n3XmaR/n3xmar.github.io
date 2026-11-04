@@ -212,6 +212,53 @@ content:
 
 
   # =========================
+  # The Log
+  # =========================
+  - name: log
+    label: The Log
+    type: collection
+    path: src/content/log
+    format: yaml-frontmatter
+
+    filename:
+      template: "{primary}.md"
+      field: create
+
+    view:
+      fields: [date, title]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+
+    fields:
+      - name: title
+        label: Update Title
+        type: string
+        required: true
+
+      - name: date
+        label: Date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+
+      - name: note
+        label: Short Note
+        type: text
+        required: true
+
+      - name: link
+        label: Link (optional)
+        type: string
+
+      - name: linkLabel
+        label: Link Label (optional)
+        type: string
+
+  # =========================
   # Currently
   # =========================
   - name: currently

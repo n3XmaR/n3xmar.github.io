@@ -1,0 +1,129 @@
+---
+import ArchiveLayout from '../layouts/ArchiveLayout.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('log')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<ArchiveLayout
+  title="The Log"
+  description="Little updates on things I build, learn, break, or wander into. No schedule."
+>
+  <section class="logbook" aria-label="Personal updates">
+    <div class="logbook-heading">
+      <span>JUST A TRAIL OF BREADCRUMBS</span>
+      <span>{String(entries.length).padStart(2, '0')} {entries.length === 1 ? 'ENTRY' : 'ENTRIES'}</span>
+    </div>
+
+    {entries.length > 0 ? (
+      <ol class="logbook-timeline">
+        {entries.map((entry) => {
+          const link = entry.data.link?.trim() ?? '';
+          const validLink = link.startsWith('/') || /^https?:\/\//i.test(link);
+          const external = /^https?:\/\//i.test(link);
+
+          return (
+            <li class="logbook-entry">
+              <time datetime={entry.data.date.toISOString().slice(0, 10)}>
+                {entry.data.date.toLocaleDateString('en-US', {
+                  month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+                })}
+              </time>
+              <h2>{entry.data.title}</h2>
+              <p>{entry.data.note}</p>
+              {validLink && (
+                <a
+                  href={link}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                >
+                  {entry.data.linkLabel || 'Take a look'} ↗
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    ) : (
+      <p class="logbook-empty">Nothing here yet. Probably busy with a side quest.</p>
+    )}
+  </section>
+</ArchiveLayout>
+
+<style>
+  .logbook {
+    max-width: 750px;
+    margin-top: 45px;
+  }
+  .logbook-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1.6px;
+  }
+  .logbook-timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 26px;
+    border-left: 1px solid var(--divider);
+  }
+  .logbook-entry {
+    position: relative;
+    padding: 28px 0 34px 24px;
+    border-bottom: 1px dashed var(--divider);
+  }
+  .logbook-entry::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 34px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+  .logbook-entry time {
+    display: block;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.6px;
+    margin-bottom: 10px;
+  }
+  .logbook-entry h2 {
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.35;
+    margin: 0 0 10px;
+  }
+  .logbook-entry p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+  .logbook-entry a {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--accent);
+    font-size: 12px;
+  }
+  .logbook-entry a:hover { text-decoration: underline; }
+  .logbook-empty {
+    color: var(--muted);
+    padding: 26px 0;
+  }
+  @media (max-width: 480px) {
+    .logbook { margin-top: 30px; }
+    .logbook-heading { gap: 12px; font-size: 9px; }
+    .logbook-entry { padding: 24px 0 28px 18px; }
+    .logbook-entry h2 { font-size: 17px; }
+  }
+</style>

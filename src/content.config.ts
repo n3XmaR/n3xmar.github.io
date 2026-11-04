@@ -59,8 +59,25 @@ const certificates = defineCollection({
 
 
 
+
+const log = defineCollection({
+    loader: glob({
+        base: './src/content/log',
+        pattern: '**/*.md'
+    }),
+
+    schema: z.object({
+        title: z.string(),
+        date: z.coerce.date(),
+        note: z.string(),
+        link: z.string().optional(),
+        linkLabel: z.string().optional()
+    })
+});
+
 export const collections = {
     'rabbit-holes': rabbitHoles,
     projects,
-    certificates
+    certificates,
+    log
 };
