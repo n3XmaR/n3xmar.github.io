@@ -1,12 +1,14 @@
 ---
-title: "GhostPass"
-description: "A simple CLI password manager built with Python."
+title: GhostPass
+description: A simple CLI password manager built with Python.
 date: 2026-11-03
-tags: ["Python", "Security", "CLI"]
-github: "https://github.com/n3XmaR/GhostPass"
-image: "/images/projects/ghostpass.png"
+tags:
+  - Python
+  - Security
+  - CLI
+image: /images/projects/ghostpass.png
+github: https://github.com/n3XmaR/GhostPass
 ---
-
 # GhostPass
 
 GhostPass is a command-line password manager I built using Python.
@@ -16,3 +18,6 @@ The project helped me practice Python, password management concepts, and buildin
 ## Source Code
 
 [View on GitHub](https://github.com/n3XmaR/GhostPass)
+
+# Test
+
