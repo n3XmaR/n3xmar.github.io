@@ -16,12 +16,16 @@ After learning Python, I wanted to put what I'd learned into practice.
 
 So I built GhostPass, a simple CLI password manager using Python.
 
+![](/images/projects/ghostpass-cli.png)
+
 ## Features
 
 - Store, update, delete, and view passwords using a local SQLite database.
 - Generate random passwords using Python's `secrets` module.
 - Check passwords against the RockYou wordlist.
 - Obfuscate stored passwords using XOR and Base64.
+
+![](/images/projects/ghostpass-leak.png)
 
 ## What I Learned
 
