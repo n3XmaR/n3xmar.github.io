@@ -236,6 +236,9 @@ const certificateBodies = await Promise.all(
               data-title={certificate.data.title}
               data-issuer={certificate.data.issuer}
               data-image={certificate.data.image}
+              data-type={certificate.data.type}
+              data-start={certificate.data.startDate?.toLocaleDateString('en-GB', { timeZone: 'UTC' }) ?? ''}
+              data-end={certificate.data.endDate?.toLocaleDateString('en-GB', { timeZone: 'UTC' }) ?? ''}
               aria-haspopup="dialog"
             >
               <div class="certificate-image">
@@ -247,6 +250,15 @@ const certificateBodies = await Promise.all(
               </div>
               <h3>{certificate.data.title}</h3>
               <p>{certificate.data.issuer}</p>
+              <p class="certificate-meta">
+              {certificate.data.type === 'certification'
+                ? 'Certification'
+                : 'Path Completion'}
+
+              {certificate.data.endDate && (
+                <> · {certificate.data.endDate.toLocaleDateString('en-GB', { timeZone: 'UTC' })}</>
+              )}
+            </p>
             </button>
           ))}
         </div>
@@ -267,6 +279,7 @@ const certificateBodies = await Promise.all(
         <img id="modal-image" src="" alt="" />
         <h3 id="modal-title"></h3>
         <p id="modal-issuer"></p>
+        <p id="modal-meta"></p>
         <div id="modal-body" class="certificate-content"></div>
       </dialog>
 
@@ -362,6 +375,7 @@ const certificateBodies = await Promise.all(
       const modalIssuer = document.querySelector('#modal-issuer');
       const modalBody = document.querySelector('#modal-body');
       const certificateCards = document.querySelectorAll('.certificate-card');
+      const modalMeta = document.querySelector('#modal-meta');
 
       if (
         modal instanceof HTMLDialogElement &&
@@ -375,13 +389,23 @@ const certificateBodies = await Promise.all(
           if (!(card instanceof HTMLButtonElement)) return;
 
           card.addEventListener('click', () => {
-            const { id, title, issuer, image } = card.dataset;
+            const { id, title, issuer, image, type, start, end } = card.dataset;
             const template = document.getElementById(`certificate-body-${id}`);
 
             modalImage.src = image ?? '';
             modalImage.alt = `${title ?? 'Certificate'} certificate`;
             modalTitle.textContent = title ?? '';
             modalIssuer.textContent = issuer ?? '';
+            modalMeta.textContent = [
+              type === 'certification' ? 'Certification' : 'Path Completion',
+              start && end
+                ? `${start} – ${end}`
+                : end
+                  ? `Completed: ${end}`
+                  : start
+                    ? `Started: ${start}`
+                    : ''
+            ].filter(Boolean).join(' · ');
 
             // Replace the previous certificate's article with this one.
             modalBody.replaceChildren();

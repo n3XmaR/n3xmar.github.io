@@ -1025,3 +1025,15 @@ header {
 .certificates-header a:hover {
   color: var(--accent);
 }
+
+.certificate-card .certificate-meta {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--accent);
+}
+
+#modal-meta {
+  margin: 10px 0 0;
+  color: var(--accent);
+  font-size: 12px;
+}
