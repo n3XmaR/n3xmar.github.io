@@ -11,7 +11,7 @@ tags:
 image: /images/projects/404timer-1.jpg
 github: https://github.com/n3XmaR/404-Timer
 ---
-# 404! Timer
+
 
 It started as a simple timer to track how much time I spend studying.
 
