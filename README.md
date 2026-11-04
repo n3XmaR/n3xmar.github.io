@@ -32,10 +32,6 @@ The site is built with:
 
 No backend or database needed.
 
-## Credits
-
-The little cursor-following companion is based on [oneko.js](https://github.com/adryd325/oneko.js).
-
 ---
 
 Made with curiosity, not a plan.
