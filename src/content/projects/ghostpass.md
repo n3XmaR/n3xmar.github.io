@@ -1,4 +1,3 @@
-
 ---
 title: "GhostPass"
 description: "A simple CLI password manager built with Python."

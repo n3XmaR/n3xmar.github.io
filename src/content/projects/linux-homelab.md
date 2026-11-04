@@ -1,4 +1,3 @@
-
 ---
 title: "Linux Homelab"
 description: "Turning an old laptop into my own self-hosted server."
