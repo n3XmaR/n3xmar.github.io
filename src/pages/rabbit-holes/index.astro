@@ -1,0 +1,44 @@
+
+---
+import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('rabbit-holes')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<ArchiveLayout
+  title="Rabbit Holes"
+  description="Writeups, books, notes, and whatever caught my attention."
+>
+  <div class="archive-list">
+    {posts.map((post) => (
+      <article class="rabbit-item">
+        <p class="rabbit-category">
+          {post.data.category}
+          ·
+          <time datetime={post.data.date.toISOString().slice(0, 10)}>
+            {post.data.date.toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric'
+            })}
+          </time>
+        </p>
+
+        <h3>
+          <a href={`/rabbit-holes/${post.id}/`}>
+            {post.data.title}
+          </a>
+        </h3>
+
+        <p>{post.data.description}</p>
+      </article>
+    ))}
+  </div>
+
+  {posts.length === 0 && (
+    <p class="archive-empty">Nothing here yet.</p>
+  )}
+</ArchiveLayout>

@@ -35,7 +35,10 @@ const projects = defineCollection({
     })
 });
 
-
+const optionalDate = z.preprocess(
+  (value) => value === '' || value === null ? undefined : value,
+  z.coerce.date().optional()
+);
 
 const certificates = defineCollection({
     loader: glob({
@@ -47,10 +50,12 @@ const certificates = defineCollection({
         title: z.string(),
         issuer: z.string(),
         image: z.string(),
-        date: z.coerce.date().optional(),
+        type: z.enum(['certification', 'completion']).default('completion'),
+        startDate: optionalDate,
+        endDate: optionalDate,
         credentialUrl: z.string().url().optional()
     })
-});
+}) ;
 
 
 

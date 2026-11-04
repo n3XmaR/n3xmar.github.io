@@ -6,13 +6,19 @@ import currently from '../data/currently.json';
 
 const siteName = 'n3Xm@R';
 
-const rabbitHoles = await getCollection('rabbit-holes');
+const rabbitHoles = (await getCollection('rabbit-holes')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
 
-const certificates = await getCollection('certificates');
+const certificates = (await getCollection('certificates')).sort(
+  (a, b) =>
+    (b.data.endDate?.getTime() ?? 0) -
+    (a.data.endDate?.getTime() ?? 0)
+);
 
 // Render each certificate article once for the shared modal.
 const certificateBodies = await Promise.all(

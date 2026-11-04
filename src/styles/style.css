@@ -1012,3 +1012,16 @@ header {
     font-size: 12px;
   }
 }
+
+.rabbit-header a,
+.projects-header a,
+.certificates-header a {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.rabbit-header a:hover,
+.projects-header a:hover,
+.certificates-header a:hover {
+  color: var(--accent);
+}

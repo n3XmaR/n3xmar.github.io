@@ -2,6 +2,7 @@
 title: "Pre Security"
 issuer: "TryHackMe"
 image: "/images/certificates/pre-security.png"
+type: completion
 ---
 
 ## My Experience

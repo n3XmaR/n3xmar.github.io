@@ -147,11 +147,11 @@ content:
       field: create
 
     view:
-      fields: [title, issuer, date]
+      fields: [title, issuer, type, endDate]
       primary: title
-      sort: [date, title]
+      sort: [endDate, title]
       default:
-        sort: date
+        sort: endDate
         order: desc
 
     fields:
@@ -172,11 +172,32 @@ content:
         options:
           media: certificates
 
-      - name: date
-        label: Date Earned
+      
+      - name: type
+        label: Certificate Type
+        type: select
+        required: true
+        options:
+          values:
+            - name: certification
+              label: Exam-Based Certification
+            - name: completion
+              label: Course / Path Completion
+
+      - name: startDate
+        label: Start Date
         type: date
+        default: ""
         options:
           format: yyyy-MM-dd
+
+      - name: endDate
+        label: Completion Date
+        type: date
+        default: ""
+        options:
+          format: yyyy-MM-dd
+
 
       - name: credentialUrl
         label: Credential URL

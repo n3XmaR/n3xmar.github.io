@@ -1,0 +1,49 @@
+
+---
+import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<ArchiveLayout
+  title="Projects"
+  description="Things I've built, broken, and sometimes finished."
+>
+  <div class="archive-grid">
+    {projects.map((project) => (
+      <a
+        class="project-card"
+        href={`/projects/${project.id}/`}
+      >
+        <div class="project-image">
+          {project.data.image ? (
+            <img
+              src={project.data.image}
+              alt={project.data.title}
+              loading="lazy"
+            />
+          ) : (
+            <span>&gt;_</span>
+          )}
+        </div>
+
+        <h3>{project.data.title}</h3>
+
+        <p class="project-description">
+          {project.data.description}
+        </p>
+
+        <p class="project-tags">
+          {project.data.tags.join(' · ')}
+        </p>
+      </a>
+    ))}
+  </div>
+
+  {projects.length === 0 && (
+    <p class="archive-empty">Nothing here yet.</p>
+  )}
+</ArchiveLayout>

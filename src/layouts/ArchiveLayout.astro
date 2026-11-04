@@ -1,0 +1,123 @@
+
+---
+import '../styles/style.css';
+import SiteHead from '../components/SiteHead.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | n3Xm@R</title>
+    <SiteHead description={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <main class="archive-page">
+      <header class="archive-topbar">
+        <a href="/" class="archive-brand">n3Xm@R</a>
+        <a href="/" class="archive-back">← Back home</a>
+      </header>
+
+      <div class="archive-intro">
+        <p>/ ARCHIVE</p>
+        <h1>{title}</h1>
+        <span>{description}</span>
+      </div>
+
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  .archive-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 35px 24px 80px;
+  }
+
+  .archive-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .archive-brand {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .archive-back {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .archive-intro {
+    margin: 65px 0 35px;
+  }
+
+  .archive-intro > p {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .archive-intro h1 {
+    font-size: clamp(32px, 6vw, 48px);
+    margin: 12px 0;
+  }
+
+  .archive-intro > span {
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+
+  .archive-grid .project-card,
+  .archive-grid .certificate-card {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .archive-empty {
+    color: var(--muted);
+    padding: 25px 0;
+  }
+
+  .certificates-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 260px));
+}
+
+  @media (max-width: 600px) {
+    .archive-page {
+      padding: 24px 20px 60px;
+    }
+
+    .archive-intro {
+      margin: 45px 0 30px;
+    }
+  }
+</style>
