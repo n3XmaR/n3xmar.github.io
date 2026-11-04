@@ -1,27 +1,10 @@
 ---
-title: "Pre Security"
-issuer: "TryHackMe"
-image: "/images/certificates/pre-security.png"
+title: Pre Security
+issuer: TryHackMe
+image: /images/certificates/pre-security.png
 type: completion
+startDate: 2025-08-01
+endDate: 2025-08-31
+credentialUrl: https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-PULK5X3TUS.pdf
 ---
-
-## My Experience
-
-Write about your experience with this learning path.
-
-What made you start it? Was it useful?
-What did you like or dislike?
-
-## What I Learned
-
-- Networking fundamentals
-- Basic security concepts
-- How the web works
-
-## Study Resources
-
-- [TryHackMe](https://tryhackme.com/)
-
-## My Thoughts
-
-Your personal opinion and recommendations.
+My starting point in cybersecurity. This learning path introduced me to the fundamentals of networking, how the web works, and basic cybersecurity concepts.
