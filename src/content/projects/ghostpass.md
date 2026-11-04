@@ -1,7 +1,8 @@
 ---
 title: GhostPass
-description: A simple CLI password manager built with Python.
-date: 2026-11-03
+description: A Python CLI password manager prototype with SQLite storage,
+  password generation, and RockYou wordlist checks.
+date: 2026-01-05
 tags:
   - Python
   - Security
@@ -9,15 +10,27 @@ tags:
 image: /images/projects/ghostpass.png
 github: https://github.com/n3XmaR/GhostPass
 ---
-# GhostPass
+# GhostPass 👻
 
-GhostPass is a command-line password manager I built using Python.
+After learning Python, I wanted to put what I'd learned into practice.
 
-The project helped me practice Python, password management concepts, and building CLI applications.
+So I built GhostPass, a simple CLI password manager using Python.
+
+## Features
+
+- Store, update, delete, and view passwords using a local SQLite database.
+- Generate random passwords using Python's `secrets` module.
+- Check passwords against the RockYou wordlist.
+- Obfuscate stored passwords using XOR and Base64.
+
+## What I Learned
+
+This project helped me practice Python, SQLite, CLI development, and basic password management concepts.
+
+I also learned an important distinction: making something work doesn't necessarily make it secure.
+
+**Note:** GhostPass is an educational prototype, not a production-ready password manager. Its XOR-based storage and SQL queries need security improvements before it could be used with real credentials.
 
 ## Source Code
 
 [View on GitHub](https://github.com/n3XmaR/GhostPass)
-
-
-
