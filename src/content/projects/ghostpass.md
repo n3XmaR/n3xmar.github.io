@@ -19,5 +19,5 @@ The project helped me practice Python, password management concepts, and buildin
 
 [View on GitHub](https://github.com/n3XmaR/GhostPass)
 
-# Test
+
 
