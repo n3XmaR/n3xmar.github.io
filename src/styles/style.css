@@ -1037,3 +1037,31 @@ header {
   color: var(--accent);
   font-size: 12px;
 }
+
+
+/* Rabbit Holes - Article Content */
+
+article {
+  max-width: 100%;
+  min-width: 0;
+}
+
+article img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+article pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 16px;
+  background: var(--surface);
+  border-radius: 8px;
+}
+
+article {
+  overflow-wrap: anywhere;
+}
