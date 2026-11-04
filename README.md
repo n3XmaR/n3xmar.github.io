@@ -1,43 +1,41 @@
-# Astro Starter Kit: Minimal
+# n3Xm@R
 
-```sh
-npm create astro@latest -- --template minimal
-```
+**One goal. Too many side quests.**
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+[**n3xmar.space**](https://n3xmar.space)
 
-## 🚀 Project Structure
+Hey, I'm Ammar, a cybersecurity student from Jordan.
 
-Inside of your Astro project, you'll see the following folders and files:
+I like pentesting, Linux, CTFs, and building random things that have absolutely nothing to do with what I was supposed to be doing.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+This is my little space on the internet. Part portfolio, part collection of things I've learned, built, broken, or just found interesting.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## What's here?
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Projects** - Things I've built, including Sponge (my Linux homelab), GhostPass, and 404! Timer.
+- **Rabbit Holes** - CTF writeups, book reviews, and whatever else catches my attention.
+- **Currently** - My main quest and a couple of side quests.
+- **Certificates** - Some learning milestones along the way.
+- **The Log** - A simple record of things I've done. No long explanations.
 
-Any static assets, like images, can be placed in the `public/` directory.
+There are a few other things hidden around the site. Try the terminal if you're curious.
 
-## 🧞 Commands
+## Under the Hood
 
-All commands are run from the root of the project, from a terminal:
+The site is built with:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- **Astro** for the static site.
+- **HTML, CSS, and JavaScript/TypeScript** for the interface and interactive bits.
+- **Markdown** for projects, writeups, and other content.
+- **Pages CMS** for editing content through GitHub.
+- **GitHub Pages** for hosting and deployment.
 
-## 👀 Want to learn more?
+No backend or database needed.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Credits
+
+The little cursor-following companion is based on [oneko.js](https://github.com/adryd325/oneko.js).
+
+---
+
+Made with curiosity, not a plan.
