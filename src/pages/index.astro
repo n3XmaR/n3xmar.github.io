@@ -2,6 +2,7 @@
 import '../styles/style.css';
 import { getCollection, render } from 'astro:content';
 import SiteHead from '../components/SiteHead.astro';
+import currently from '../data/currently.json';
 
 const siteName = 'n3Xm@R';
 
@@ -131,32 +132,36 @@ const certificateBodies = await Promise.all(
           </div>
         </div>
 
+        
         <div class="main-quest">
           <div class="quest-header">
             <p class="quest-label">MAIN QUEST</p>
-            <span class="quest-status">In Progress...</span>
+            <span class="quest-status">{currently.mainQuest.status}</span>
           </div>
-          <h3>HTB CPTS</h3>
+
+          <h3>{currently.mainQuest.title}</h3>
+
           <p class="quest-description">
-            Working my way through the penetration testing path.
+            {currently.mainQuest.description}
           </p>
         </div>
 
         <div class="side-quests">
-          <div class="side-quest">
-            <p class="side-label">SIDE QUEST 01</p>
-            <h3>Portfolio Website</h3>
-            <p class="side-description">
-              Building the website you're looking at right now.
-            </p>
-          </div>
+          {currently.sideQuests.map((quest, index) => (
+            <div class="side-quest">
+              <p class="side-label">
+                SIDE QUEST {String(index + 1).padStart(2, '0')}
+              </p>
 
-          <div class="side-quest">
-            <p class="side-label">SIDE QUEST 02</p>
-            <h3>Crime and Punishment</h3>
-            <p class="side-description">Reading (and overthinking it).</p>
-          </div>
+              <h3>{quest.title}</h3>
+
+              <p class="side-description">
+                {quest.description}
+              </p>
+            </div>
+          ))}
         </div>
+
       </section>
 
       <!-- 04. Rabbit Holes -->

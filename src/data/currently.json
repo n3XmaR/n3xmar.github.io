@@ -1,0 +1,18 @@
+
+{
+  "mainQuest": {
+    "title": "HTB CPTS",
+    "status": "In Progress...",
+    "description": "Working my way through the penetration testing path."
+  },
+  "sideQuests": [
+    {
+      "title": "Portfolio Website",
+      "description": "Building the website you're looking at right now."
+    },
+    {
+      "title": "Crime and Punishment",
+      "description": "Reading (and overthinking it)."
+    }
+  ]
+}

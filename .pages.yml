@@ -188,3 +188,47 @@ content:
         options:
           format: markdown
           switcher: true
+
+
+  # =========================
+  # Currently
+  # =========================
+  - name: currently
+    label: Currently
+    type: file
+    path: src/data/currently.json
+    format: json
+
+    fields:
+      - name: mainQuest
+        label: Main Quest
+        type: object
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+
+          - name: status
+            label: Status
+            type: string
+
+          - name: description
+            label: Description
+            type: text
+
+      - name: sideQuests
+        label: Side Quests
+        type: object
+        list:
+          min: 2
+          max: 2
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+
+          - name: description
+            label: Description
+            type: text
