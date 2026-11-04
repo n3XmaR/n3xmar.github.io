@@ -69,9 +69,8 @@ const log = defineCollection({
     schema: z.object({
         title: z.string(),
         date: z.coerce.date(),
-        note: z.string(),
-        link: z.string().optional(),
-        linkLabel: z.string().optional()
+        category: z.enum(['project', 'event', 'learning', 'milestone']),
+        link: z.string().optional()
     })
 });
 

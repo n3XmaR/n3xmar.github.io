@@ -225,7 +225,7 @@ content:
       field: create
 
     view:
-      fields: [date, title]
+      fields: [date, category, title]
       primary: title
       sort: [date, title]
       default:
@@ -233,11 +233,6 @@ content:
         order: desc
 
     fields:
-      - name: title
-        label: Update Title
-        type: string
-        required: true
-
       - name: date
         label: Date
         type: date
@@ -245,17 +240,28 @@ content:
         options:
           format: yyyy-MM-dd
 
-      - name: note
-        label: Short Note
-        type: text
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values:
+            - name: project
+              label: Project
+            - name: event
+              label: Event
+            - name: learning
+              label: Learning
+            - name: milestone
+              label: Milestone
+
+      - name: title
+        label: Title
+        type: string
         required: true
 
       - name: link
         label: Link (optional)
-        type: string
-
-      - name: linkLabel
-        label: Link Label (optional)
         type: string
 
   # =========================
