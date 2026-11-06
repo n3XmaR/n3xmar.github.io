@@ -1,56 +1,27 @@
 ---
-import '../../styles/style.css';
 import { getCollection, render } from 'astro:content';
-import SiteHead from '../../components/SiteHead.astro';
+import EntryLayout from '../../layouts/EntryLayout.astro';
 
 export async function getStaticPaths() {
-    const posts = await getCollection('rabbit-holes');
-
-    return posts.map((post) => ({
-        params: { id: post.id },
-        props: { post }
-    }));
+  const posts = await getCollection('rabbit-holes');
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>{post.data.title} | n3Xm@R</title>
-        <SiteHead description={post.data.description} />
-    </head>
-
-    <body>
-        <main>
-            <a href="/rabbit-holes" id="back-link">← Back to Rabbit Holes</a>
-
-            <h1>{post.data.title}</h1>
-            <p>{post.data.category}</p>
-
-            <article>
-                <Content />
-            </article>
-        </main>
-
-        
-        <script>
-        const backLink = document.querySelector('#back-link');
-
-        if (backLink && document.referrer) {
-            const previousPage = new URL(document.referrer);
-
-            if (previousPage.origin === window.location.origin) {
-            if (previousPage.pathname === '/') {
-                backLink.href = '/';
-                backLink.textContent = '← Back to home';
-            }
-            }
-        }
-        </script>
-
-    </body>
-</html>
+<EntryLayout
+  title={post.data.title}
+  description={post.data.description}
+  category={'/ ' + post.data.category.replaceAll(' · ', ' / ').toUpperCase()}
+  date={post.data.date}
+  backHref="/rabbit-holes"
+  backText="BACK TO RABBIT HOLES"
+  type="article"
+>
+  <Content />
+</EntryLayout>

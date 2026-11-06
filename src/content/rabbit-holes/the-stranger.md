@@ -6,7 +6,6 @@ date: 2026-08-06
 ---
 
 
-# My Thoughts on The Stranger
 
 *Albert Camus - Finished August 6, 2026*
 
@@ -16,7 +15,7 @@ From the very beginning, something about him feels off. His mother dies, and he 
 
 At first, I couldn't understand him. How can someone be so indifferent to everything?
 
-Then comes the murder.
+> Then comes the murder.
 
 Meursault blames the sun, the heat, and the overwhelming pressure of the moment. But what really caught my attention wasn't just the first shot. It was the four shots that followed.
 
