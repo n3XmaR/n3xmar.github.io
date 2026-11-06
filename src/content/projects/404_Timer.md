@@ -25,6 +25,20 @@ First, I wanted to organize my study time by topic. Then I added progress tracki
 - **Pomodoro Reminders:** Get a reminder every 50 minutes.
 - **YouTube Playlist Analyzer:** Calculate a playlist's total duration, compare playback speeds, and generate a study schedule.
 
+### Focus Dashboard
+
+![](/images/projects/focus-dashboard.png)
+
+### Study Analytics
+
+![](/images/projects/study-analytics.png)
+
+### YouTube Playlist Analyzer
+
+![](/images/projects/playlist-analyzer.png)
+
+
+
 ## How It Works
 
 The project is built with HTML, CSS, and JavaScript.
