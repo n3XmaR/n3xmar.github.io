@@ -1,15 +1,30 @@
-
 ---
 interface Props {
+  title: string;
   description?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
 }
 
-const { description } = Astro.props;
+const { title, description, type = 'website', noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const image = new URL('/avatar.png', Astro.site ?? Astro.url);
 ---
 
 <link rel="icon" type="image/png" href="/avatar.png?v=2" />
 <script is:inline src="/oneko.js" data-cat="/oneko.gif" defer></script>
 
-{description && (
-  <meta name="description" content={description} />
+{description && <meta name="description" content={description} />}
+{noindex ? (
+  <meta name="robots" content="noindex, follow" />
+) : (
+  <>
+    <link rel="canonical" href={canonical.toString()} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical.toString()} />
+    <meta property="og:image" content={image.toString()} />
+    <meta name="twitter:card" content="summary" />
+  </>
 )}
